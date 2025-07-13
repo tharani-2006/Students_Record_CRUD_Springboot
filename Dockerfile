@@ -1,4 +1,3 @@
-# Step 1: Build the application using Maven and JDK 21
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 
 WORKDIR /app
@@ -6,9 +5,9 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-RUN mvn clean package -DskipTests
+# Skips test compile + test run
+RUN mvn clean package -Dmaven.test.skip=true
 
-# Step 2: Run the app using a lightweight JDK 21 runtime
 FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
